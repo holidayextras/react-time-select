@@ -1,0 +1,23 @@
+{
+  "name": "react-time-select",
+  "version": "1.0.0",
+  "description": "Component to generate a dropdown list populated with a configurable time range",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel/register test/test*",
+    "example:build": "ulimit -n 9999 && watchify -t babelify doc/example.js -o doc/example-built.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^0.13.3",
+    "react-bootstrap": "^0.25.2",
+    "react-intl": "^1.2.0"
+  },
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "browserify": "^11.1.0",
+    "mocha": "^2.3.3",
+    "watchify": "^3.4.0"
+  }
+}
