@@ -1,5 +1,9 @@
 'use strict';
 
+global.document = require('jsdom').jsdom('<!doctype html><html><body></body></html>');
+global.window = document.parentWindow;
+global.navigator = window.navigator;
+
 var React = require('react/addons');
 var TestUtils = React.addons.TestUtils;
 
@@ -59,6 +63,14 @@ describe('TimeSelect', function() {
       assert.equal(renderOutput.props.type, 'select');
     });
 
+    it('passes through name, label and className', function() {
+      var renderOutput = shallowRender(<TimeSelect name="foo" label="bar" className="baz" />);
+
+      assert.equal(renderOutput.props.name, 'foo');
+      assert.equal(renderOutput.props.className, 'baz');
+      assert.equal(renderOutput.props.label, 'bar');
+    });
+
     it('fills the select box with a range of times', function() {
       var renderOutput = shallowRender(<TimeSelect />);
       assert.deepEqual(valuesOfOptions(renderOutput), [
@@ -88,18 +100,58 @@ describe('TimeSelect', function() {
 
     it('can be localised', function() {
       var renderOutput = shallowRender(<TimeSelect start={1000} end={1130} step={15} locales={['en-US']} />);
-      console.log(renderOutput.props.formats)
-      React.renderToString(renderOutput);
-      return;
+
+      // All options contain a FormattedTime child node from the react-intl library
       renderOutput.props.children.forEach(function(option) {
         assert.equal(option.props.children.type, ReactIntl.FormattedTime);
-        console.log(React.renderToString(option.props.children))
-        console.log(option.props.children);
       });
+
+      // FormattedTimes expect date instances as a starting point to be formatted
+      assert.deepEqual(renderOutput.props.children.map(function(option) {
+        var date = option.props.children.props.value;
+        return [ date.getHours(), date.getMinutes() ];
+      }), [ [10, 0], [10, 15], [10, 30], [10, 45], [11, 0], [11, 15] ]);
     });
   });
 
   describe('events', function() {
+    var clock;
 
+    beforeEach(function() {
+      clock = sinon.useFakeTimers(new Date(2015, 5, 6).valueOf());
+    });
+
+    afterEach(function() {
+      clock.restore();
+    });
+
+    it('will emit a date up if an option is chosen', function() {
+      var handler = sinon.stub();
+      var doc = TestUtils.renderIntoDocument(<TimeSelect onChange={handler} />);
+      var node = TestUtils.findRenderedDOMComponentWithTag(doc, 'select').getDOMNode();
+
+      React.addons.TestUtils.Simulate.change(node, {
+        target: {
+          value: '11:30'
+        }
+      });
+
+      sinon.assert.calledWith(handler, new Date(2015, 5, 6, 11, 30, 0, 0));
+    });
+
+    it('will use a passed in date for the values of days/months/years', function() {
+      var handler = sinon.stub();
+      var date = new Date(2016, 7, 8);
+      var doc = TestUtils.renderIntoDocument(<TimeSelect onChange={handler} value={date} />);
+      var node = TestUtils.findRenderedDOMComponentWithTag(doc, 'select').getDOMNode();
+
+      React.addons.TestUtils.Simulate.change(node, {
+        target: {
+          value: '14:30'
+        }
+      });
+
+      sinon.assert.calledWith(handler, new Date(2016, 7, 8, 14, 30, 0, 0));
+    });
   });
 });
