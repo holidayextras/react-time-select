@@ -4,10 +4,11 @@
   "description": "Component to generate a dropdown list populated with a configurable time range",
   "main": "index.js",
   "scripts": {
+    "start": "ulimit -n 9999 && watchify -t babelify doc/example.js -o doc/example-built.js",
     "test": "mocha --compilers js:babel/register --require intl test/test*",
-    "example:build": "ulimit -n 9999 && watchify -t babelify doc/example.js -o doc/example-built.js"
+    "lint": "make-up src test"
   },
-  "author": "",
+  "author": "Ollie Buck <ollie.buck@holidayextras.com>",
   "license": "ISC",
   "dependencies": {
     "react": "^0.13.3",
@@ -20,6 +21,7 @@
     "browserify": "^11.1.0",
     "intl": "^1.0.0",
     "jsdom": "^3.1.2",
+    "make-up": "^5.3.1",
     "mocha": "^2.3.3",
     "sinon": "^1.17.1",
     "watchify": "^3.4.0"

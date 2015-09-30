@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var React = require('react');
 var Input = require('react-bootstrap').Input;
@@ -46,7 +46,7 @@ var TimePicker = React.createClass({
   },
 
   onChange: function(e) {
-    if(this.props.onChange) {
+    if (this.props.onChange) {
       this.props.onChange(this.generateDateAtTime(e.target.value));
     }
   },
@@ -68,7 +68,7 @@ var TimePicker = React.createClass({
   generateFormattedTime: function(unformattedTime) {
     var formattedTime = '' + unformattedTime;
 
-    while(formattedTime.length < 4) {
+    while (formattedTime.length < 4) {
       formattedTime = '0' + formattedTime;
     }
 
@@ -90,10 +90,10 @@ var TimePicker = React.createClass({
     var end = parseInt(this.props.end, 10);
     var step = parseInt(this.props.step, 10);
 
-    for(var i = start; i < end; i += step) {
+    for (var i = start; i < end; i += step) {
       var minutes = i % 100;
 
-      if(minutes > 59) {
+      if (minutes > 59) {
         i -= minutes;
         i += 100;
       }
@@ -105,13 +105,12 @@ var TimePicker = React.createClass({
   },
 
   defaultValueFromProps: function() {
-    if(!this.props.value) return;
+    if (!this.props.value) return undefined;
 
     return this.generateFormattedTime((this.props.value.getHours() * 100) + this.props.value.getMinutes());
   },
 
   render: function() {
-    var self = this;
     return (
       <Input type="select" defaultValue={this.defaultValueFromProps()} name={this.props.name} className={this.props.className} label={this.props.label} onChange={this.onChange}>
         {this.listTimeOptions().map(function(timeData) {

@@ -34,7 +34,7 @@ describe('TimeSelect', function() {
 
   describe('props', function() {
     it('has default values for many props', function() {
-      var element = <TimeSelect />
+      var element = <TimeSelect />;
 
       assert.deepEqual(element.props, {
         className: 'input-sm',
