@@ -90,7 +90,7 @@ var TimePicker = React.createClass({
     var end = parseInt(this.props.end, 10);
     var step = parseInt(this.props.step, 10);
 
-    for(var i = this.props.start; i < this.props.end; i += step) {
+    for(var i = start; i < end; i += step) {
       var minutes = i % 100;
 
       if(minutes > 59) {
