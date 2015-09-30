@@ -15,17 +15,17 @@ React.render(
     <h1>With options</h1>
     <TimeSelect label="Choose a time" name="TheTime" start={330} end={2130} step={15} />
 
-    <h1>Small step</h1>
+    <h1>With small step</h1>
     <TimeSelect step={5} />
 
     <h1>With locale</h1>
     <TimeSelect locales={['en-US']} />
 
     <h1>With default value</h1>
-    <TimeSelect label="Alert this time" value={myDate} />
+    <TimeSelect label="9 AM" value={myDate} />
 
     <h1>With behaviour</h1>
-    <TimeSelect label="Alert this time" value={myDate} onChange={outputDate} />
+    <TimeSelect label="Alert this time" onChange={outputDate} />
   </div>
   ,
   document.getElementById('container')
