@@ -5,7 +5,7 @@
   "main": "src/TimeSelect.jsx",
   "scripts": {
     "prestart": "ulimit -n 9999",
-    "start": "watchify -t babelify doc/example.js -o doc/example-built.js",
+    "start": "watchify -t babelify doc/example.js -o doc/example-built.js -v",
     "test": "mocha --compilers js:babel/register --require intl test/test*",
     "lint": "make-up src test doc"
   },
