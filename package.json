@@ -4,7 +4,8 @@
   "description": "Component to generate a dropdown list populated with a configurable time range",
   "main": "src/TimeSelect.jsx",
   "scripts": {
-    "start": "ulimit -n 9999 && watchify -t babelify doc/example.js -o doc/example-built.js",
+    "prestart": "ulimit -n 9999",
+    "start": "watchify -t babelify doc/example.js -o doc/example-built.js",
     "test": "mocha --compilers js:babel/register --require intl test/test*",
     "lint": "make-up src test doc"
   },
