@@ -1,9 +1,10 @@
 {
   "name": "react-time-select",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Component to generate a dropdown list populated with a configurable time range",
-  "main": "src/TimeSelect.jsx",
+  "main": "dist/TimeSelect.js",
   "scripts": {
+    "prepublish": "mkdir -p dist && babel src/TimeSelect.jsx > dist/TimeSelect.js",
     "prestart": "ulimit -n 9999",
     "start": "watchify -t babelify doc/example.js -o doc/example-built.js -v",
     "test": "mocha --compilers js:babel/register --require intl test/test*",
