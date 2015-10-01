@@ -1,11 +1,14 @@
+'use strict';
+/* eslint-disable no-alert */
+
 var React = require('react');
-var TimeSelect = require('../index.js');
+var TimeSelect = require('../');
 
 var myDate = new Date('2015-05-05T09:00');
 var outputDate = function(dateInstance) {
   myDate = dateInstance;
   alert('selected date (with time) is ' + dateInstance);
-}
+};
 
 React.render(
   <div>
