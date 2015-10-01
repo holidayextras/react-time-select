@@ -2,11 +2,11 @@
   "name": "react-time-select",
   "version": "1.0.0",
   "description": "Component to generate a dropdown list populated with a configurable time range",
-  "main": "index.js",
+  "main": "src/TimeSelect.jsx",
   "scripts": {
     "start": "ulimit -n 9999 && watchify -t babelify doc/example.js -o doc/example-built.js",
     "test": "mocha --compilers js:babel/register --require intl test/test*",
-    "lint": "make-up src test"
+    "lint": "make-up src test doc"
   },
   "author": "Ollie Buck <ollie.buck@holidayextras.com>",
   "license": "ISC",
