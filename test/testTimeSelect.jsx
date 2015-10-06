@@ -12,6 +12,7 @@ var ReactIntl = require('react-intl');
 
 var assert = require('assert');
 var sinon = require('sinon');
+var shallowRender = require('react-shallow-render');
 
 var TimeSelect = require('../');
 
@@ -19,12 +20,6 @@ var valuesOfOptions = function(component) {
   return component.props.children.map(function(option) {
     return option.props.value;
   });
-};
-
-var shallowRender = function(jsx) {
-  var shallowRenderer = TestUtils.createRenderer();
-  shallowRenderer.render(jsx);
-  return shallowRenderer.getRenderOutput();
 };
 
 describe('TimeSelect', function() {
