@@ -19,7 +19,7 @@ var TimePicker = React.createClass({
     onChange: React.PropTypes.func,
     formats: React.PropTypes.shape({
       time: React.PropTypes.shape({
-        optionTime: React.PropTypes.object
+        short: React.PropTypes.object
       })
     })
   },
