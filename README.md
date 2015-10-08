@@ -1,9 +1,9 @@
-# time-select
+# react-time-select
 
 [React](https://facebook.github.io/react/) Component to render a [React Bootstrap](https://react-bootstrap.github.io/) dropdown list pre-filled with localizable times formatted by [ReactIntl](http://formatjs.io/react/).
 
 ```
-var TimeSelect = require('time-select');
+var TimeSelect = require('react-time-select');
 React.render(<TimeSelect label="Choose time" />, document.getElementById('container'));
 ```
 
@@ -27,4 +27,4 @@ Clone the repo and `npm install`.
 
 `npm test` for the unit tests.
 
-`npm lint` checks the code against our [guidelines](https://github.com/holidayextras/culture/blob/master/.eslintrc)
+`npm run lint` checks the code against our [guidelines](https://github.com/holidayextras/culture/blob/master/.eslintrc)
