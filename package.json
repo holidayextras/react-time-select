@@ -1,6 +1,6 @@
 {
   "name": "react-time-select",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Component to generate a dropdown list populated with a configurable time range",
   "main": "src/TimeSelect.jsx",
   "scripts": {
