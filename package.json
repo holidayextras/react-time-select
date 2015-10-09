@@ -4,6 +4,7 @@
   "description": "Component to generate a dropdown list populated with a configurable time range",
   "main": "dist/TimeSelect.js",
   "scripts": {
+    "coverage": "istanbul cover _mocha -- --compilers js:babel/register --require react-tests-globals-setup test/test* && istanbul check-coverage --statements 95 --branches 95 --functions 95 --lines 95",
     "prepublish": "mkdir -p dist && babel src/TimeSelect.jsx > dist/TimeSelect.js",
     "prestart": "ulimit -n 9999",
     "start": "watchify -t babelify doc/example.js -o doc/example-built.js -v",
@@ -25,6 +26,7 @@
     "babel": "^5.8.23",
     "babelify": "^6.3.0",
     "browserify": "^11.1.0",
+    "istanbul": "^0.3.22",
     "jsdom": "^3.1.2",
     "make-up": "^5.3.1",
     "mocha": "^2.3.3",
