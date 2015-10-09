@@ -123,7 +123,6 @@ describe('TimeSelect', function() {
     });
 
     it('will not throw if a change handler is not supplied', function() {
-      var handler = sinon.stub();
       var doc = TestUtils.renderIntoDocument(<TimeSelect />);
       var node = TestUtils.findRenderedDOMComponentWithTag(doc, 'select').getDOMNode();
 
