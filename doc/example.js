@@ -2,7 +2,7 @@
 /* eslint-disable no-alert */
 
 var React = require('react');
-var TimeSelect = require('../');
+var TimeSelect = require('../src/TimeSelect.jsx');
 
 var myDate = new Date('2015-05-05T09:00');
 var outputDate = function(dateInstance) {

@@ -27,4 +27,6 @@ Clone the repo and `npm install`.
 
 `npm test` for the unit tests.
 
+`npm run coverage` gets coverage with istanbul, report is output to the `coverage` directory. It will exit nonzero if any metric is below 95%
+
 `npm run lint` checks the code against our [guidelines](https://github.com/holidayextras/culture/blob/master/.eslintrc)

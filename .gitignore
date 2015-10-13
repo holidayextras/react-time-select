@@ -1,4 +1,7 @@
 .eslintrc
-doc/example-built.js
 node_modules
 npm-debug.log
+
+coverage
+doc/example-built.js
+dist

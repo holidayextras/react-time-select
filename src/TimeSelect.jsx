@@ -19,7 +19,7 @@ var TimePicker = React.createClass({
     onChange: React.PropTypes.func,
     formats: React.PropTypes.shape({
       time: React.PropTypes.shape({
-        optionTime: React.PropTypes.object
+        short: React.PropTypes.object
       })
     })
   },
@@ -112,7 +112,7 @@ var TimePicker = React.createClass({
 
   render: function() {
     return (
-      <Input type="select" defaultValue={this.defaultValueFromProps()} name={this.props.name} className={this.props.className} label={this.props.label} onChange={this.onChange}>
+      <Input type="select" value={this.defaultValueFromProps()} name={this.props.name} className={this.props.className} label={this.props.label} onChange={this.onChange}>
         {this.listTimeOptions().map(function(timeData) {
           return (
             <option value={timeData.value} key={timeData.key}>

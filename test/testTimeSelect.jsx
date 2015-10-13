@@ -1,9 +1,5 @@
 'use strict';
 
-global.document = require('jsdom').jsdom('<!doctype html><html><body></body></html>');
-global.window = document.parentWindow;
-global.navigator = window.navigator;
-
 var React = require('react/addons');
 var TestUtils = React.addons.TestUtils;
 
@@ -12,19 +8,14 @@ var ReactIntl = require('react-intl');
 
 var assert = require('assert');
 var sinon = require('sinon');
+var shallowRender = require('react-shallow-render');
 
-var TimeSelect = require('../');
+var TimeSelect = require('../src/TimeSelect');
 
 var valuesOfOptions = function(component) {
   return component.props.children.map(function(option) {
     return option.props.value;
   });
-};
-
-var shallowRender = function(jsx) {
-  var shallowRenderer = TestUtils.createRenderer();
-  shallowRenderer.render(jsx);
-  return shallowRenderer.getRenderOutput();
 };
 
 describe('TimeSelect', function() {
@@ -61,6 +52,12 @@ describe('TimeSelect', function() {
       var renderOutput = shallowRender(<TimeSelect />);
       assert.equal(renderOutput.type, Input);
       assert.equal(renderOutput.props.type, 'select');
+    });
+
+    it('can be provided a default value as a Date instance', function() {
+      var date = new Date(2015, 1, 1, 15, 30);
+      var renderOutput = shallowRender(<TimeSelect value={date} />);
+      assert.equal(renderOutput.props.value, '15:30');
     });
 
     it('passes through name, label and className', function() {
@@ -123,6 +120,19 @@ describe('TimeSelect', function() {
 
     afterEach(function() {
       clock.restore();
+    });
+
+    it('will not throw if a change handler is not supplied', function() {
+      var doc = TestUtils.renderIntoDocument(<TimeSelect />);
+      var node = TestUtils.findRenderedDOMComponentWithTag(doc, 'select').getDOMNode();
+
+      assert.doesNotThrow(function() {
+        React.addons.TestUtils.Simulate.change(node, {
+          target: {
+            value: '11:30'
+          }
+        });
+      });
     });
 
     it('will emit a date up if an option is chosen', function() {
