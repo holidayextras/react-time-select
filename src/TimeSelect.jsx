@@ -117,7 +117,7 @@ var TimePicker = React.createClass({
           {this.listTimeOptions().map(function(timeData) {
             return (
               <option value={timeData.value} key={timeData.key}>
-                <ReactIntl.FormattedTime value={timeData.date} />
+                <ReactIntl.FormattedTime value={timeData.date} format="short" />
               </option>
             );
           })}

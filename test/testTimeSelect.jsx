@@ -13,7 +13,7 @@ var shallowRender = require('react-shallow-render');
 var TimeSelect = require('../src/TimeSelect');
 
 var valuesOfOptions = function(component) {
-  return component.props.children.map(function(option) {
+  return component.props.children.props.children.map(function(option) {
     return option.props.value;
   });
 };
@@ -91,12 +91,12 @@ describe('TimeSelect', function() {
       var renderOutput = shallowRender(<TimeSelect start={1000} end={1130} step={15} locales={['en-US']} />);
 
       // All options contain a FormattedTime child node from the react-intl library
-      renderOutput.props.children.forEach(function(option) {
+      renderOutput.props.children.props.children.forEach(function(option) {
         assert.equal(option.props.children.type, ReactIntl.FormattedTime);
       });
 
       // FormattedTimes expect date instances as a starting point to be formatted
-      assert.deepEqual(renderOutput.props.children.map(function(option) {
+      assert.deepEqual(renderOutput.props.children.props.children.map(function(option) {
         var date = option.props.children.props.value;
         return [ date.getHours(), date.getMinutes() ];
       }), [ [10, 0], [10, 15], [10, 30], [10, 45], [11, 0], [11, 15] ]);
