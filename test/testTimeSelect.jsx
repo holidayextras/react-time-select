@@ -33,16 +33,7 @@ describe('TimeSelect', function() {
         step: 30,
         end: 2359,
         name: 'Time',
-        label: 'Time',
-        locales: [ 'en-GB' ],
-        formats: {
-          time: {
-            short: {
-              hour: '2-digit',
-              minute: '2-digit'
-            }
-          }
-        }
+        label: 'Time'
       });
     });
   });
@@ -50,14 +41,15 @@ describe('TimeSelect', function() {
   describe('render', function() {
     it('creates a react-bootstrap select input', function() {
       var renderOutput = shallowRender(<TimeSelect />);
-      assert.equal(renderOutput.type, Input);
-      assert.equal(renderOutput.props.type, 'select');
+      assert.equal(renderOutput.type, ReactIntl.IntlProvider);
+      assert.equal(renderOutput.props.children.type, Input);
+      assert.equal(renderOutput.props.children.props.type, 'select');
     });
 
     it('can be provided a default value as a Date instance', function() {
       var date = new Date(2015, 1, 1, 15, 30);
       var renderOutput = shallowRender(<TimeSelect value={date} />);
-      assert.equal(renderOutput.props.value, '15:30');
+      assert.equal(renderOutput.props.children.value, '15:30');
     });
 
     it('passes through name, label and className', function() {
