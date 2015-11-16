@@ -116,8 +116,11 @@ var TimePicker = React.createClass({
       <ReactIntl.IntlProvider defaultLocale={intlDefaults.locale} defaultFormats={intlDefaults.formats}>
         <Input type="select" value={this.defaultValueFromProps()} name={this.props.name} className={this.props.className} label={this.props.label} onChange={this.onChange}>
           {this.listTimeOptions().map(function(timeData) {
-            var time = ReactIntl.injectIntl.formattedTime( timeData.value );
-            return <option value={timeData.value} key={timeData.key}>{time}</option>;
+            return (
+              <ReactIntl.FormattedTime value={timeData.date}>
+                {(time) => <option value={timeData.value} key={timeData.key}>{time}</option>}
+              </ReactIntl.FormattedTime>
+            );
           }, this)}
         </Input>
       </ReactIntl.IntlProvider>
@@ -125,4 +128,4 @@ var TimePicker = React.createClass({
   }
 });
 
-module.exports = ReactIntl.injectIntl( TimePicker);
+module.exports = TimePicker;
