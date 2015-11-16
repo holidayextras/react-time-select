@@ -5,6 +5,7 @@ var Input = require('react-bootstrap').Input;
 var ReactIntl = require('react-intl');
 
 var TimePicker = React.createClass({
+
   contextTypes: {
     locale: React.PropTypes.string,
     messages: React.PropTypes.object,
@@ -115,16 +116,13 @@ var TimePicker = React.createClass({
       <ReactIntl.IntlProvider defaultLocale={intlDefaults.locale} defaultFormats={intlDefaults.formats}>
         <Input type="select" value={this.defaultValueFromProps()} name={this.props.name} className={this.props.className} label={this.props.label} onChange={this.onChange}>
           {this.listTimeOptions().map(function(timeData) {
-            return (
-              <option value={timeData.value} key={timeData.key}>
-                <ReactIntl.FormattedTime value={timeData.date} format="short" />
-              </option>
-            );
-          })}
+            var time = ReactIntl.injectIntl.formattedTime( timeData.value );
+            return <option value={timeData.value} key={timeData.key}>{time}</option>;
+          }, this)}
         </Input>
       </ReactIntl.IntlProvider>
     );
   }
 });
 
-module.exports = TimePicker;
+module.exports = ReactIntl.injectIntl( TimePicker);
