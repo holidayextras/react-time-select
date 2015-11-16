@@ -5,7 +5,11 @@ var Input = require('react-bootstrap').Input;
 var ReactIntl = require('react-intl');
 
 var TimePicker = React.createClass({
-  mixins: [ ReactIntl.IntlMixin ],
+  contextTypes: {
+    locale: React.PropTypes.string,
+    messages: React.PropTypes.object,
+    formats: React.PropTypes.object
+  },
 
   propTypes: {
     className: React.PropTypes.string,

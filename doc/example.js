@@ -2,6 +2,7 @@
 /* eslint-disable no-alert */
 
 var React = require('react');
+var ReactDom = require('react-dom');
 var TimeSelect = require('../src/TimeSelect.jsx');
 
 var myDate = new Date('2015-05-05T09:00');
@@ -10,7 +11,7 @@ var outputDate = function(dateInstance) {
   alert('selected date (with time) is ' + dateInstance);
 };
 
-React.render(
+ReactDom.render(
   <div>
     <h1>Defaults</h1>
     <TimeSelect />

@@ -1,7 +1,7 @@
 'use strict';
 
-var React = require('react/addons');
-var TestUtils = React.addons.TestUtils;
+var React = require('react');
+var TestUtils = require('react-addons-test-utils');
 
 var Input = require('react-bootstrap').Input;
 var ReactIntl = require('react-intl');
@@ -124,10 +124,10 @@ describe('TimeSelect', function() {
 
     it('will not throw if a change handler is not supplied', function() {
       var doc = TestUtils.renderIntoDocument(<TimeSelect />);
-      var node = TestUtils.findRenderedDOMComponentWithTag(doc, 'select').getDOMNode();
+      var node = TestUtils.findRenderedDOMComponentWithTag(doc, 'select');
 
       assert.doesNotThrow(function() {
-        React.addons.TestUtils.Simulate.change(node, {
+        TestUtils.Simulate.change(node, {
           target: {
             value: '11:30'
           }
@@ -138,9 +138,9 @@ describe('TimeSelect', function() {
     it('will emit a date up if an option is chosen', function() {
       var handler = sinon.stub();
       var doc = TestUtils.renderIntoDocument(<TimeSelect onChange={handler} />);
-      var node = TestUtils.findRenderedDOMComponentWithTag(doc, 'select').getDOMNode();
+      var node = TestUtils.findRenderedDOMComponentWithTag(doc, 'select');
 
-      React.addons.TestUtils.Simulate.change(node, {
+      TestUtils.Simulate.change(node, {
         target: {
           value: '11:30'
         }
@@ -153,9 +153,9 @@ describe('TimeSelect', function() {
       var handler = sinon.stub();
       var date = new Date(2016, 7, 8);
       var doc = TestUtils.renderIntoDocument(<TimeSelect onChange={handler} value={date} />);
-      var node = TestUtils.findRenderedDOMComponentWithTag(doc, 'select').getDOMNode();
+      var node = TestUtils.findRenderedDOMComponentWithTag(doc, 'select');
 
-      React.addons.TestUtils.Simulate.change(node, {
+      TestUtils.Simulate.change(node, {
         target: {
           value: '14:30'
         }
