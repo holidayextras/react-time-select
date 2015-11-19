@@ -1,14 +1,13 @@
 {
   "name": "react-time-select",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Component to generate a dropdown list populated with a configurable time range",
   "main": "dist/TimeSelect.js",
   "scripts": {
     "ci": "npm run lint && npm run coverage",
     "coverage": "istanbul cover _mocha -- --compilers js:babel/register --require react-tests-globals-setup test/test* && istanbul check-coverage --statements 95 --branches 95 --functions 95 --lines 95",
     "prepublish": "mkdir -p dist && babel src/TimeSelect.jsx > dist/TimeSelect.js",
-    "prestart": "ulimit -n 9999",
-    "start": "watchify -t babelify doc/example.js -o doc/example-built.js -v",
+    "start": "ulimit -n 9999; watchify -t babelify doc/example.js -o doc/example-built.js -v",
     "test": "mocha --compilers js:babel/register --require react-tests-globals-setup test/test*",
     "lint": "make-up src test doc"
   },
@@ -19,9 +18,10 @@
     "url": "https://github.com/holidayextras/react-time-select.git"
   },
   "dependencies": {
-    "react": "^0.13.3",
-    "react-bootstrap": "^0.25.2",
-    "react-intl": "^1.2.0"
+    "react": "0.14.2",
+    "react-bootstrap": "0.27.3",
+    "react-dom": "0.14.2",
+    "react-intl": "^2.0.0-pr-3"
   },
   "devDependencies": {
     "babel": "^5.8.23",
@@ -31,7 +31,8 @@
     "jsdom": "^3.1.2",
     "make-up": "^5.3.1",
     "mocha": "^2.3.3",
-    "react-shallow-render": "^1.0.1",
+    "react-addons-test-utils": "^0.14.2",
+    "react-shallow-render": "jsdf/react-shallow-render.git",
     "react-tests-globals-setup": "^1.0.0",
     "sinon": "^1.17.1",
     "watchify": "^3.4.0"

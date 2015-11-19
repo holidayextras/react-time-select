@@ -5,7 +5,12 @@ var Input = require('react-bootstrap').Input;
 var ReactIntl = require('react-intl');
 
 var TimePicker = React.createClass({
-  mixins: [ ReactIntl.IntlMixin ],
+
+  contextTypes: {
+    locale: React.PropTypes.string,
+    messages: React.PropTypes.object,
+    formats: React.PropTypes.object
+  },
 
   propTypes: {
     className: React.PropTypes.string,
@@ -15,13 +20,7 @@ var TimePicker = React.createClass({
     start: React.PropTypes.number,
     end: React.PropTypes.number,
     step: React.PropTypes.number,
-    locales: React.PropTypes.array,
-    onChange: React.PropTypes.func,
-    formats: React.PropTypes.shape({
-      time: React.PropTypes.shape({
-        short: React.PropTypes.object
-      })
-    })
+    onChange: React.PropTypes.func
   },
 
   getDefaultProps: function() {
@@ -32,16 +31,7 @@ var TimePicker = React.createClass({
       // 00:30, 0030 is octal literal 24 & disallowed in strict mode.
       start: 30,
       end: 2359,
-      step: 30,
-      locales: [ 'en-GB' ],
-      formats: {
-        time: {
-          short: {
-            hour: '2-digit',
-            minute: '2-digit'
-          }
-        }
-      }
+      step: 30
     };
   },
 
@@ -111,16 +101,29 @@ var TimePicker = React.createClass({
   },
 
   render: function() {
+    var intlDefaults = {
+      locale: 'en',
+      formats: {
+        time: {
+          short: {
+            hour: '2-digit',
+            minute: '2-digit'
+          }
+        }
+      }
+    };
     return (
-      <Input type="select" value={this.defaultValueFromProps()} name={this.props.name} className={this.props.className} label={this.props.label} onChange={this.onChange}>
-        {this.listTimeOptions().map(function(timeData) {
-          return (
-            <option value={timeData.value} key={timeData.key}>
-              <ReactIntl.FormattedTime value={timeData.date} format="short" />
-            </option>
-          );
-        })}
-      </Input>
+      <ReactIntl.IntlProvider defaultLocale={intlDefaults.locale} defaultFormats={intlDefaults.formats}>
+        <Input type="select" value={this.defaultValueFromProps()} name={this.props.name} className={this.props.className} label={this.props.label} onChange={this.onChange}>
+          {this.listTimeOptions().map(function(timeData) {
+            return (
+              <ReactIntl.FormattedTime value={timeData.date}>
+                {(time) => <option value={timeData.value} key={timeData.key}>{time}</option>}
+              </ReactIntl.FormattedTime>
+            );
+          }, this)}
+        </Input>
+      </ReactIntl.IntlProvider>
     );
   }
 });
