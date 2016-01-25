@@ -60,7 +60,7 @@ var TimePicker = React.createClass({
       return {
         key: unformattedTime,
         value: formattedTime,
-        date: self.generateDateAtTime(formattedTime)
+          date: self.generateDateAtTime(formattedTime)
       };
     });
   },
@@ -112,15 +112,19 @@ var TimePicker = React.createClass({
 
   render: function() {
     return (
-      <Input type="select" value={this.defaultValueFromProps()} name={this.props.name} className={this.props.className} label={this.props.label} onChange={this.onChange}>
-        {this.listTimeOptions().map(function(timeData) {
-          return (
-            <option value={timeData.value} key={timeData.key}>
-              <ReactIntl.FormattedTime value={timeData.date} format="short" />
-            </option>
-          );
-        })}
-      </Input>
+      <ReactIntl.IntlProvider locale="en-GB">
+        <Input type="select" value={this.defaultValueFromProps()} name={this.props.name} className={this.props.className} label={this.props.label} onChange={this.onChange}>
+          {this.listTimeOptions().map(timeData => {
+            return (
+              <ReactIntl.FormattedTime key={timeData.key} value={timeData.date} {...this.props.formats.time.short}>
+                {time => (
+                  <option value={timeData.value}>{time}</option>
+                )}
+              </ReactIntl.FormattedTime>
+            );
+          })}
+        </Input>
+      </ReactIntl.IntlProvider>
     );
   }
 });
