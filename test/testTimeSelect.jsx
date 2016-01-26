@@ -10,16 +10,9 @@ var ReactIntl = require('react-intl');
 
 var assert = require('assert');
 var sinon = require('sinon');
-var shallowRender = require('react-shallow-render');
 var shallow = require('enzyme').shallow;
 
 var TimeSelect = require('../src/TimeSelect');
-
-var valuesOfOptions = function(component) {
-  return component.props.children.map(function(option) {
-    return option.props.value;
-  });
-};
 
 describe('TimeSelect', function() {
   it('is an element', function() {
@@ -57,7 +50,7 @@ describe('TimeSelect', function() {
         type: 'select',
         name: 'Time',
         className: 'input-sm',
-        label: 'Time',
+        label: 'Time'
       };
     });
 
@@ -108,7 +101,7 @@ describe('TimeSelect', function() {
     });
 
     it('can be localised', function() {
-      var timeSelect = shallow(<TimeSelect start={1000} end={1130} step={15} locale='en-US'/>);
+      var timeSelect = shallow(<TimeSelect start={1000} end={1130} step={15} locale="en-US"/>);
       expect(timeSelect.find(ReactIntl.FormattedTime)).to.have.length(6);
     });
   });

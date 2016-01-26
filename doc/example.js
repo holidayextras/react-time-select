@@ -23,7 +23,7 @@ ReactDOM.render(
     <TimeSelect step={5} />
 
     <h1>With locale</h1>
-    <TimeSelect locale='en-US'/>
+    <TimeSelect locale="en-US"/>
 
     <h1>With default value</h1>
     <TimeSelect label="9 AM" value={myDate} />
