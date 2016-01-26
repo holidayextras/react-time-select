@@ -111,8 +111,9 @@ var TimePicker = React.createClass({
   },
 
   render: function() {
+
     return (
-      <ReactIntl.IntlProvider locale="en-GB">
+      <ReactIntl.IntlProvider>
         <Input type="select" value={this.defaultValueFromProps()} name={this.props.name} className={this.props.className} label={this.props.label} onChange={this.onChange}>
           {this.listTimeOptions().map(timeData => {
             return (

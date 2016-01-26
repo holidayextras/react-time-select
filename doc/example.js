@@ -32,5 +32,5 @@ ReactDOM.render(
     <TimeSelect label="Alert this time" onChange={outputDate} />
   </div>
   ,
-  document.getElementById('container')
+  document.getElementById('container');
 );
