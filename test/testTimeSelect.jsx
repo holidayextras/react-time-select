@@ -37,7 +37,7 @@ describe('TimeSelect', function() {
         end: 2359,
         name: 'Time',
         label: 'Time',
-        locales: [ 'en-GB' ],
+        locale: 'en-GB',
         formats: {
           time: {
             short: {

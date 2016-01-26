@@ -23,7 +23,7 @@ ReactDOM.render(
     <TimeSelect step={5} />
 
     <h1>With locale</h1>
-    <TimeSelect locales={['en-US']} />
+    <TimeSelect locale='en-US'/>
 
     <h1>With default value</h1>
     <TimeSelect label="9 AM" value={myDate} />
@@ -32,5 +32,5 @@ ReactDOM.render(
     <TimeSelect label="Alert this time" onChange={outputDate} />
   </div>
   ,
-  document.getElementById('container');
+  document.getElementById('container')
 );
