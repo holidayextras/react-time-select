@@ -71,11 +71,23 @@ describe('TimeSelect', function() {
       expect(timeSelect.find(Input)).to.have.length(1);
     });
 
-    it('should render the Input field with right props', function() {
+    it('should render the Input field with a type prop', function() {
       var timeSelect = shallow(<TimeSelect {...props}/>);
       expect(timeSelect.find(Input).props().type).to.equal(props.type);
+    });
+
+    it('should render the Input field with a name prop', function() {
+      var timeSelect = shallow(<TimeSelect {...props}/>);
       expect(timeSelect.find(Input).props().name).to.equal(props.name);
+    });
+
+    it('should render the Input field with a className prop', function() {
+      var timeSelect = shallow(<TimeSelect {...props}/>);
       expect(timeSelect.find(Input).props().className).to.equal(props.className);
+    });
+
+    it('should render the Input field with a value prop', function() {
+      var timeSelect = shallow(<TimeSelect {...props}/>);
       expect(timeSelect.find(Input).props().value).to.equal(props.value);
     });
 
@@ -96,7 +108,7 @@ describe('TimeSelect', function() {
     });
 
     it('can be localised', function() {
-      var timeSelect = shallow(<TimeSelect start={1000} end={1130} step={15} locales={['en-US']}/>);
+      var timeSelect = shallow(<TimeSelect start={1000} end={1130} step={15} locale='en-US'/>);
       expect(timeSelect.find(ReactIntl.FormattedTime)).to.have.length(6);
     });
   });

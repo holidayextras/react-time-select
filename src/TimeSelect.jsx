@@ -60,7 +60,7 @@ var TimePicker = React.createClass({
       return {
         key: unformattedTime,
         value: formattedTime,
-          date: self.generateDateAtTime(formattedTime)
+        date: self.generateDateAtTime(formattedTime)
       };
     });
   },
