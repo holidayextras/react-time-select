@@ -10,7 +10,7 @@ var ReactIntl = require('react-intl');
 
 var assert = require('assert');
 var sinon = require('sinon');
-var shallow = require('enzyme').shallow;
+var { shallow, mount } = require('enzyme');
 
 var TimeSelect = require('../src/TimeSelect');
 
@@ -47,7 +47,6 @@ describe('TimeSelect', function() {
     var props;
     beforeEach(function() {
       props = {
-        type: 'select',
         name: 'Time',
         className: 'input-sm',
         label: 'Time'
@@ -72,7 +71,7 @@ describe('TimeSelect', function() {
 
     it('should render the Input field with a type prop', function() {
       var timeSelect = shallow(<TimeSelect {...props}/>);
-      expect(timeSelect.find(Input).props().type).to.equal(props.type);
+      expect(timeSelect.find(Input).props().type).to.equal('select');
     });
 
     it('should render the Input field with a name prop', function() {
@@ -106,9 +105,14 @@ describe('TimeSelect', function() {
       expect(timeSelect.find(Input).children()).to.have.length(6);
     });
 
-    it('can be localised', function() {
+    it('the time can be formatted', function() {
       var timeSelect = shallow(<TimeSelect start={1000} end={1130} step={15} locale="en-US"/>);
       expect(timeSelect.find(ReactIntl.FormattedTime)).to.have.length(6);
+    });
+
+    it('can be localised to a US format', function() {
+      var timeSelect = mount(<TimeSelect start={1000} end={1030} step={30} locale="en-US"/>);
+      expect(timeSelect.find(ReactIntl.FormattedTime).text()).to.equal('10:00 AM')
     });
   });
 
