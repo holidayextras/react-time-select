@@ -112,7 +112,7 @@ describe('TimeSelect', function() {
 
     it('can be localised to a US format', function() {
       var timeSelect = mount(<TimeSelect start={1000} end={1030} step={30} locale="en-US"/>);
-      expect(timeSelect.find(ReactIntl.FormattedTime).text()).to.equal('10:00 AM')
+      expect(timeSelect.find(ReactIntl.FormattedTime).text()).to.equal('10:00 AM');
     });
   });
 
