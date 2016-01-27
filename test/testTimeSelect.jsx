@@ -59,6 +59,12 @@ describe('TimeSelect', function() {
       expect(timeSelect.find(ReactIntl.IntlProvider)).to.have.length(1);
     });
 
+    it('can be provided a default value as a Date instance', function() {
+      var date = new Date(2015, 1, 1, 15, 30);
+      var timeSelect = shallow(<TimeSelect value={date}/>);
+      expect(timeSelect.find(Input).props().value).to.equal('15:30');
+    });
+
     it('should render the Input field', function() {
       var timeSelect = shallow(<TimeSelect />);
       expect(timeSelect.find(Input)).to.have.length(1);
