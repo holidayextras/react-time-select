@@ -1,6 +1,6 @@
 # react-time-select
 
-[React](https://facebook.github.io/react/) Component to render a [React Bootstrap](https://react-bootstrap.github.io/) dropdown list pre-filled with localizable times formatted by [ReactIntl](http://formatjs.io/react/). Requires react v0.14.2.
+[React](https://facebook.github.io/react/) Component to render a [React Bootstrap](https://react-bootstrap.github.io/) dropdown list pre-filled with localizable times formatted by [ReactIntl](http://formatjs.io/react/). Requires react v0.14+.
 
 ```
 var TimeSelect = require('react-time-select');
