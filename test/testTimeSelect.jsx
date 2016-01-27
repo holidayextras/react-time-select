@@ -1,7 +1,7 @@
 'use strict';
 
-var React = require('react/addons');
-var TestUtils = React.addons.TestUtils;
+var React = require('react');
+var TestUtils = require('react-addons-test-utils');
 var expect = require('chai')
 .use(require('dirty-chai')).expect;
 
@@ -132,7 +132,7 @@ describe('TimeSelect', function() {
       var node = TestUtils.findRenderedDOMComponentWithTag(doc, 'select');
 
       assert.doesNotThrow(function() {
-        React.addons.TestUtils.Simulate.change(node, {
+        TestUtils.Simulate.change(node, {
           target: {
             value: '11:30'
           }
@@ -145,7 +145,7 @@ describe('TimeSelect', function() {
       var doc = TestUtils.renderIntoDocument(<TimeSelect onChange={handler} />);
       var node = TestUtils.findRenderedDOMComponentWithTag(doc, 'select');
 
-      React.addons.TestUtils.Simulate.change(node, {
+      TestUtils.Simulate.change(node, {
         target: {
           value: '11:30'
         }
@@ -160,7 +160,7 @@ describe('TimeSelect', function() {
       var doc = TestUtils.renderIntoDocument(<TimeSelect onChange={handler} value={date} />);
       var node = TestUtils.findRenderedDOMComponentWithTag(doc, 'select');
 
-      React.addons.TestUtils.Simulate.change(node, {
+      TestUtils.Simulate.change(node, {
         target: {
           value: '14:30'
         }
