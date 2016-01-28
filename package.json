@@ -1,6 +1,6 @@
 {
   "name": "react-time-select",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Component to generate a dropdown list populated with a configurable time range",
   "main": "dist/TimeSelect.js",
   "scripts": {
@@ -19,18 +19,23 @@
     "url": "https://github.com/holidayextras/react-time-select.git"
   },
   "dependencies": {
-    "react": "^0.13.3",
-    "react-bootstrap": "^0.25.2",
-    "react-intl": "^1.2.0"
+    "react": "^0.14.2",
+    "react-bootstrap": "^0.28.2",
+    "react-dom": "^0.14.2",
+    "react-intl": "2.0.0-pr-3"
   },
   "devDependencies": {
     "babel": "^5.8.23",
     "babelify": "^6.3.0",
     "browserify": "^11.1.0",
+    "chai": "^3.3.0",
+    "dirty-chai": "^1.2.2",
+    "enzyme": "^1.3.1",
     "istanbul": "^0.3.22",
     "jsdom": "^3.1.2",
-    "make-up": "^5.3.1",
+    "make-up": "^7.1.0",
     "mocha": "^2.3.3",
+    "react-addons-test-utils": "^0.14.6",
     "react-shallow-render": "^1.0.1",
     "react-tests-globals-setup": "^1.0.0",
     "sinon": "^1.17.1",

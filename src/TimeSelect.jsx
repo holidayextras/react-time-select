@@ -15,7 +15,7 @@ var TimePicker = React.createClass({
     start: React.PropTypes.number,
     end: React.PropTypes.number,
     step: React.PropTypes.number,
-    locales: React.PropTypes.array,
+    locale: React.PropTypes.string,
     onChange: React.PropTypes.func,
     formats: React.PropTypes.shape({
       time: React.PropTypes.shape({
@@ -33,7 +33,7 @@ var TimePicker = React.createClass({
       start: 30,
       end: 2359,
       step: 30,
-      locales: [ 'en-GB' ],
+      locale: 'en-GB',
       formats: {
         time: {
           short: {
@@ -111,16 +111,21 @@ var TimePicker = React.createClass({
   },
 
   render: function() {
+
     return (
-      <Input type="select" value={this.defaultValueFromProps()} name={this.props.name} className={this.props.className} label={this.props.label} onChange={this.onChange}>
-        {this.listTimeOptions().map(function(timeData) {
-          return (
-            <option value={timeData.value} key={timeData.key}>
-              <ReactIntl.FormattedTime value={timeData.date} format="short" />
-            </option>
-          );
-        })}
-      </Input>
+      <ReactIntl.IntlProvider locale={this.props.locale}>
+        <Input type="select" value={this.defaultValueFromProps()} name={this.props.name} className={this.props.className} label={this.props.label} onChange={this.onChange}>
+          {this.listTimeOptions().map(timeData => {
+            return (
+              <ReactIntl.FormattedTime key={timeData.key} value={timeData.date} {...this.props.formats.time.short}>
+                {time => (
+                  <option value={timeData.value}>{time}</option>
+                )}
+              </ReactIntl.FormattedTime>
+            );
+          })}
+        </Input>
+      </ReactIntl.IntlProvider>
     );
   }
 });

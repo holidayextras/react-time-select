@@ -1,6 +1,6 @@
 # react-time-select
 
-[React](https://facebook.github.io/react/) Component to render a [React Bootstrap](https://react-bootstrap.github.io/) dropdown list pre-filled with localizable times formatted by [ReactIntl](http://formatjs.io/react/).
+[React](https://facebook.github.io/react/) Component to render a [React Bootstrap](https://react-bootstrap.github.io/) dropdown list pre-filled with localizable times formatted by [ReactIntl](http://formatjs.io/react/). Requires react v0.14+.
 
 ```
 var TimeSelect = require('react-time-select');
@@ -17,7 +17,7 @@ React.render(<TimeSelect label="Choose time" />, document.getElementById('contai
 - __start__ - Time to start from when generating range, for example `start={1230}`. Default is {30} (00:30).
 - __end__ - Time to stop generating range. Default is {2359}. Will not be listed as an option if your "step" value overruns it.
 - __step__ - Number of minutes between each option. Default is {30}.
-- __locales__ - Locales ReactIntl should attempt to use for formatting. Default is {['en-GB']}
+- __locale__ - Locale ReactIntl should attempt to use for formatting. Default is 'en-GB'
 
 ## Developing
 
