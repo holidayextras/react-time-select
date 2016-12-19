@@ -114,6 +114,11 @@ describe('TimeSelect', function() {
       var timeSelect = mount(<TimeSelect start={1000} end={1030} step={30} locale="en-US"/>);
       expect(timeSelect.find(ReactIntl.FormattedTime).text()).to.equal('10:00 AM');
     });
+
+    it('passes an id prop to the Input component', function() {
+      var timeSelect = shallow(<TimeSelect {...props} id="timeSelect"/>);
+      expect(timeSelect.find(Input).prop('id')).to.equal('timeSelect');
+    });
   });
 
   describe('events', function() {
