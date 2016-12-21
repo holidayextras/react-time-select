@@ -18,6 +18,7 @@ React.render(<TimeSelect label="Choose time" />, document.getElementById('contai
 - __end__ - Time to stop generating range. Default is {2359}. Will not be listed as an option if your "step" value overruns it.
 - __step__ - Number of minutes between each option. Default is {30}.
 - __locale__ - Locale ReactIntl should attempt to use for formatting. Default is 'en-GB'
+- __id__ - `id` attribute applied to the input element.
 
 ## Developing
 

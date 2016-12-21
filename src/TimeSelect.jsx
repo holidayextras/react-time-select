@@ -8,6 +8,7 @@ var TimePicker = React.createClass({
   mixins: [ ReactIntl.IntlMixin ],
 
   propTypes: {
+    id: React.PropTypes.string,
     className: React.PropTypes.string,
     label: React.PropTypes.string,
     name: React.PropTypes.string,
@@ -114,7 +115,15 @@ var TimePicker = React.createClass({
 
     return (
       <ReactIntl.IntlProvider locale={this.props.locale}>
-        <Input type="select" value={this.defaultValueFromProps()} name={this.props.name} className={this.props.className} label={this.props.label} onChange={this.onChange}>
+        <Input
+          type="select"
+          value={this.defaultValueFromProps()}
+          name={this.props.name}
+          className={this.props.className}
+          label={this.props.label}
+          onChange={this.onChange}
+          id={this.props.id}
+        >
           {this.listTimeOptions().map(timeData => {
             return (
               <ReactIntl.FormattedTime key={timeData.key} value={timeData.date} {...this.props.formats.time.short}>

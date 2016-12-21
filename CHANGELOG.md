@@ -1,4 +1,7 @@
 # Change log
+### 2.1.0 - 2016-12-19
+- Add an id prop that is passed to the input component.
+
 
 ### 2.0.0 - 2016-01-27
 - updates the component to use react v0.14.2
