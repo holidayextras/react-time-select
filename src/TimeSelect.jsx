@@ -15,9 +15,12 @@ var TimePicker = React.createClass({
     value: React.PropTypes.instanceOf(Date),
     start: React.PropTypes.number,
     end: React.PropTypes.number,
+    time: React.PropTypes.object,
     step: React.PropTypes.number,
     locale: React.PropTypes.string,
     onChange: React.PropTypes.func,
+    minutesHoursChanged: React.PropTypes.func,
+    seperateHourMins: React.PropTypes.bool,
     formats: React.PropTypes.shape({
       time: React.PropTypes.shape({
         short: React.PropTypes.object
@@ -35,6 +38,7 @@ var TimePicker = React.createClass({
       end: 2359,
       step: 30,
       locale: 'en-GB',
+      seperateHourMins: false,
       formats: {
         time: {
           short: {
@@ -80,8 +84,34 @@ var TimePicker = React.createClass({
     var hoursMins = formattedTime.split(':');
     var newDate = new Date(this.props.value || new Date());
     newDate.setHours(hoursMins[0], hoursMins[1], 0, 0);
-
     return newDate;
+  },
+
+  generateHours: function() {
+    var hours = [];
+
+    for (var hour = 0; hour < 24; hour++) {
+      if (hour < 10) {
+        hours.push('0' + hour);
+      } else {
+        hours.push(hour.toString());
+      }
+    }
+    return hours;
+  },
+
+  generateMinutes: function() {
+    var minutes = [];
+
+    for (var minute = 0; minute <= 60 - this.props.step; minute += this.props.step) {
+      if (minute < 10) {
+        minutes.push('0' + minute);
+      } else {
+        minutes.push(minute.toString());
+      }
+    }
+
+    return minutes;
   },
 
   generateTimeRange: function() {
@@ -111,10 +141,67 @@ var TimePicker = React.createClass({
     return this.generateFormattedTime((this.props.value.getHours() * 100) + this.props.value.getMinutes());
   },
 
-  render: function() {
+  hoursChanged: function(e) {
+    this.props.minutesHoursChanged({ hours: e.target.value });
+  },
+
+  minutesChanged: function(e) {
+    this.props.minutesHoursChanged({ minutes: e.target.value });
+  },
+
+  generateTimeInput: function(timeUnit) {
+    var timeValues;
+    var label;
+    var currentTime;
+    var changeFunction;
+
+    if (timeUnit === 'minutes') {
+      timeValues = this.generateMinutes();
+      label = 'Minutes';
+      currentTime = this.props.time.minutes;
+      changeFunction = this.minutesChanged;
+    }
+
+    if (timeUnit === 'hours') {
+      timeValues = this.generateHours();
+      label = 'Hours';
+      currentTime = this.props.time.hours;
+      changeFunction = this.hoursChanged;
+    }
 
     return (
-      <ReactIntl.IntlProvider locale={this.props.locale}>
+      <div className="col-xs-6">
+        <Input
+          type="select"
+          value={currentTime}
+          name={this.props.name}
+          className={this.props.className}
+          label={label}
+          onChange={changeFunction}
+          id={this.props.id}
+        >
+          {timeValues.map(timeData => {
+            return (
+              <option value={timeData}>{timeData}</option>
+            );
+          })}
+        </Input>
+      </div>
+    );
+  },
+
+  render: function() {
+    var timeInput = <span />;
+
+    if (this.props.seperateHourMins) {
+      timeInput = (
+        <div className="row">
+          {this.generateTimeInput('hours')}
+          {this.generateTimeInput('minutes')}
+        </div>
+      );
+    } else {
+      timeInput = (
         <Input
           type="select"
           value={this.defaultValueFromProps()}
@@ -134,6 +221,12 @@ var TimePicker = React.createClass({
             );
           })}
         </Input>
+      );
+    }
+
+    return (
+      <ReactIntl.IntlProvider locale={this.props.locale}>
+        {timeInput}
       </ReactIntl.IntlProvider>
     );
   }

@@ -31,6 +31,7 @@ describe('TimeSelect', function() {
         name: 'Time',
         label: 'Time',
         locale: 'en-GB',
+        seperateHourMins: false,
         formats: {
           time: {
             short: {
@@ -119,6 +120,50 @@ describe('TimeSelect', function() {
       var timeSelect = shallow(<TimeSelect {...props} id="timeSelect"/>);
       expect(timeSelect.find(Input).prop('id')).to.equal('timeSelect');
     });
+
+    context('seperateHourMins', function() {
+      beforeEach(function() {
+        props = {
+          time: {
+            hours: '10',
+            minutes: '5'
+          },
+          seperateHourMins: true
+        };
+      });
+
+      it('should create 2 inputs', function() {
+        var timeSelect = shallow(<TimeSelect {...props}/>);
+        expect(timeSelect.find(Input)).to.have.length(2);
+      });
+
+      it('should have a hours input', function() {
+        var timeSelect = shallow(<TimeSelect {...props}/>);
+        expect(timeSelect.find(Input).first().props().label).to.equal('Hours');
+      });
+
+      it('should have a minutes input', function() {
+        var timeSelect = shallow(<TimeSelect {...props}/>);
+        expect(timeSelect.find(Input).at(1).props().label).to.equal('Minutes');
+      });
+
+      it('should use current time as value', function() {
+        var timeSelect = shallow(<TimeSelect {...props}/>);
+        expect(timeSelect.find(Input).first().props().value).to.equal(props.time.hours);
+        expect(timeSelect.find(Input).at(1).props().value).to.equal(props.time.minutes);
+      });
+
+      it('fills the hours select box with 24 hours', function() {
+        var timeSelect = shallow(<TimeSelect {...props}/>);
+        expect(timeSelect.find(Input).first().children()).to.have.length(24);
+      });
+
+      it('fills the minutes select box with range from steps prop', function() {
+        props.step = 5;
+        var timeSelect = shallow(<TimeSelect {...props}/>);
+        expect(timeSelect.find(Input).at(1).children()).to.have.length(12);
+      });
+    });
   });
 
   describe('events', function() {
@@ -172,6 +217,49 @@ describe('TimeSelect', function() {
       });
 
       sinon.assert.calledWith(handler, new Date(2016, 7, 8, 14, 30, 0, 0));
+    });
+
+    context('seperateHourMins', function() {
+      var time;
+
+      beforeEach(function() {
+        time = {
+          hours: '11',
+          minutes: '55'
+        };
+      });
+
+      context('hours', function() {
+        it('will emit hours up if an option is chosen', function() {
+          var handler = sinon.stub();
+          var doc = TestUtils.renderIntoDocument(<TimeSelect seperateHourMins={true} time={time} minutesHoursChanged={handler} />);
+          var node = TestUtils.scryRenderedDOMComponentsWithTag(doc, 'select')[0];
+
+          TestUtils.Simulate.change(node, {
+            target: {
+              value: '14'
+            }
+          });
+
+          sinon.assert.calledWith(handler, { hours: '14' });
+        });
+      });
+
+      context('minutes', function() {
+        it('will emit minutes up if an option is chosen', function() {
+          var handler = sinon.stub();
+          var doc = TestUtils.renderIntoDocument(<TimeSelect seperateHourMins={true} time={time} minutesHoursChanged={handler} />);
+          var node = TestUtils.scryRenderedDOMComponentsWithTag(doc, 'select')[1];
+
+          TestUtils.Simulate.change(node, {
+            target: {
+              value: '50'
+            }
+          });
+
+          sinon.assert.calledWith(handler, { minutes: '50' });
+        });
+      });
     });
   });
 });
