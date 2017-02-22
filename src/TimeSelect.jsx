@@ -4,6 +4,9 @@ var React = require('react');
 var Input = require('react-bootstrap').Input;
 var ReactIntl = require('react-intl');
 
+var HourInput = require('./HourInput');
+var MinuteInput = require('./MinuteInput');
+
 var TimePicker = React.createClass({
   mixins: [ ReactIntl.IntlMixin ],
 
@@ -15,11 +18,13 @@ var TimePicker = React.createClass({
     value: React.PropTypes.instanceOf(Date),
     start: React.PropTypes.number,
     end: React.PropTypes.number,
-    time: React.PropTypes.object,
+    time: React.PropTypes.shape({
+      hours: React.PropTypes.string,
+      minutes: React.PropTypes.string
+    }),
     step: React.PropTypes.number,
     locale: React.PropTypes.string,
     onChange: React.PropTypes.func,
-    minutesHoursChanged: React.PropTypes.func,
     seperateHourMins: React.PropTypes.bool,
     formats: React.PropTypes.shape({
       time: React.PropTypes.shape({
@@ -50,12 +55,6 @@ var TimePicker = React.createClass({
     };
   },
 
-  onChange: function(e) {
-    if (this.props.onChange) {
-      this.props.onChange(this.generateDateAtTime(e.target.value));
-    }
-  },
-
   listTimeOptions: function() {
     var self = this;
 
@@ -83,7 +82,7 @@ var TimePicker = React.createClass({
   generateDateAtTime: function(formattedTime) {
     var hoursMins = formattedTime.split(':');
     var newDate = new Date(this.props.value || new Date());
-    newDate.setHours(hoursMins[0], hoursMins[1], 0, 0);
+    if (!this.props.seperateHourMins) newDate.setHours(hoursMins[0], hoursMins[1], 0, 0);
     return newDate;
   },
 
@@ -141,63 +140,49 @@ var TimePicker = React.createClass({
     return this.generateFormattedTime((this.props.value.getHours() * 100) + this.props.value.getMinutes());
   },
 
-  hoursChanged: function(e) {
-    this.props.minutesHoursChanged({ hours: e.target.value });
+  changeCombinedTime: function(e) {
+    var hourMins = e.target.value.split(':');
+    this.props.onChange({
+      hours: hourMins[0],
+      minutes: hourMins[1]
+    });
   },
 
-  minutesChanged: function(e) {
-    this.props.minutesHoursChanged({ minutes: e.target.value });
+  changeHours: function(e) {
+    this.props.onChange({
+      hours: e.target.value,
+      minutes: this.props.time.minutes
+    });
   },
 
-  generateTimeInput: function(timeUnit) {
-    var timeValues;
-    var label;
-    var currentTime;
-    var changeFunction;
-
-    if (timeUnit === 'minutes') {
-      timeValues = this.generateMinutes();
-      label = 'Minutes';
-      currentTime = this.props.time.minutes;
-      changeFunction = this.minutesChanged;
-    }
-
-    if (timeUnit === 'hours') {
-      timeValues = this.generateHours();
-      label = 'Hours';
-      currentTime = this.props.time.hours;
-      changeFunction = this.hoursChanged;
-    }
-
-    return (
-      <div className="col-xs-6">
-        <Input
-          type="select"
-          value={currentTime}
-          name={this.props.name}
-          className={this.props.className}
-          label={label}
-          onChange={changeFunction}
-          id={this.props.id}
-        >
-          {timeValues.map(timeData => {
-            return (
-              <option value={timeData}>{timeData}</option>
-            );
-          })}
-        </Input>
-      </div>
-    );
+  changeMinutes: function(e) {
+    this.props.onChange({
+      hours: this.props.time.hours,
+      minutes: e.target.value
+    });
   },
 
   render: function() {
-    var timeInput = <span />;
+    var timeInput;
 
     if (this.props.seperateHourMins) {
       timeInput = (
         <div className="row">
-          {this.generateTimeInput('hours')}
-          {this.generateTimeInput('minutes')}
+          <HourInput
+            id={this.props.id}
+            className={this.props.className}
+            value={this.props.time.hours}
+            name={this.props.time.hours}
+            onChange={this.changeHours}
+            options={this.generateHours()} />
+
+          <MinuteInput
+            id={this.props.id}
+            className={this.props.className}
+            value={this.props.time.minutes}
+            name={this.props.name}
+            onChange={this.changeMinutes}
+            options={this.generateMinutes()} />
         </div>
       );
     } else {
@@ -208,7 +193,7 @@ var TimePicker = React.createClass({
           name={this.props.name}
           className={this.props.className}
           label={this.props.label}
-          onChange={this.onChange}
+          onChange={this.changeCombinedTime}
           id={this.props.id}
         >
           {this.listTimeOptions().map(timeData => {

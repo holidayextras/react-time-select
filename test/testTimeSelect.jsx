@@ -232,7 +232,7 @@ describe('TimeSelect', function() {
       context('hours', function() {
         it('will emit hours up if an option is chosen', function() {
           var handler = sinon.stub();
-          var doc = TestUtils.renderIntoDocument(<TimeSelect seperateHourMins={true} time={time} minutesHoursChanged={handler} />);
+          var doc = TestUtils.renderIntoDocument(<TimeSelect seperateHourMins={true} time={time} onChange={handler} />);
           var node = TestUtils.scryRenderedDOMComponentsWithTag(doc, 'select')[0];
 
           TestUtils.Simulate.change(node, {
@@ -248,7 +248,7 @@ describe('TimeSelect', function() {
       context('minutes', function() {
         it('will emit minutes up if an option is chosen', function() {
           var handler = sinon.stub();
-          var doc = TestUtils.renderIntoDocument(<TimeSelect seperateHourMins={true} time={time} minutesHoursChanged={handler} />);
+          var doc = TestUtils.renderIntoDocument(<TimeSelect seperateHourMins={true} time={time} onChange={handler} />);
           var node = TestUtils.scryRenderedDOMComponentsWithTag(doc, 'select')[1];
 
           TestUtils.Simulate.change(node, {
