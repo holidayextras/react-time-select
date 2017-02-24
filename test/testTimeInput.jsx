@@ -8,7 +8,6 @@ var expect = require('chai')
 var Input = require('react-bootstrap').Input;
 
 var assert = require('assert');
-var sinon = require('sinon');
 var { shallow } = require('enzyme');
 
 var TimeInput = require('../src/TimeInput');
@@ -25,7 +24,7 @@ describe('TimeInput', function() {
     };
   });
 
-  it('is an element', function () {
+  it('is an element', function() {
     assert(TestUtils.isElement(<TimeInput />));
   });
 

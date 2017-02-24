@@ -6,7 +6,6 @@ var expect = require('chai')
   .use(require('dirty-chai')).expect;
 
 var assert = require('assert');
-var sinon = require('sinon');
 var { shallow } = require('enzyme');
 
 var HourInput = require('../src/HourInput');
@@ -23,7 +22,7 @@ describe('HourInput', function() {
     };
   });
 
-  it('is an element', function () {
+  it('is an element', function() {
     assert(TestUtils.isElement(<HourInput />));
   });
 
