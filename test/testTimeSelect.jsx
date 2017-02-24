@@ -6,6 +6,7 @@ var expect = require('chai')
 .use(require('dirty-chai')).expect;
 
 var Input = require('react-bootstrap').Input;
+
 var ReactIntl = require('react-intl');
 
 var assert = require('assert');
@@ -13,6 +14,8 @@ var sinon = require('sinon');
 var { shallow, mount } = require('enzyme');
 
 var TimeSelect = require('../src/TimeSelect');
+var HourInput = require('../src/HourInput');
+var MinuteInput = require('../src/MinuteInput');
 
 describe('TimeSelect', function() {
   it('is an element', function() {
@@ -132,36 +135,31 @@ describe('TimeSelect', function() {
         };
       });
 
-      it('should create 2 inputs', function() {
-        var timeSelect = shallow(<TimeSelect {...props}/>);
-        expect(timeSelect.find(Input)).to.have.length(2);
-      });
-
       it('should have a hours input', function() {
-        var timeSelect = shallow(<TimeSelect {...props}/>);
-        expect(timeSelect.find(Input).first().props().label).to.equal('Hours');
+        var timeSelect = mount(<TimeSelect {...props}/>);
+        expect(timeSelect.find(HourInput));
       });
 
       it('should have a minutes input', function() {
         var timeSelect = shallow(<TimeSelect {...props}/>);
-        expect(timeSelect.find(Input).at(1).props().label).to.equal('Minutes');
+        expect(timeSelect.find(MinuteInput));
       });
 
       it('should use current time as value', function() {
         var timeSelect = shallow(<TimeSelect {...props}/>);
-        expect(timeSelect.find(Input).first().props().value).to.equal(props.time.hours);
-        expect(timeSelect.find(Input).at(1).props().value).to.equal(props.time.minutes);
+        expect(timeSelect.find(HourInput).props().value).to.equal(props.time.hours);
+        expect(timeSelect.find(MinuteInput).props().value).to.equal(props.time.minutes);
       });
 
       it('fills the hours select box with 24 hours', function() {
-        var timeSelect = shallow(<TimeSelect {...props}/>);
-        expect(timeSelect.find(Input).first().children()).to.have.length(24);
+        var timeSelect = mount(<TimeSelect {...props}/>);
+        expect(timeSelect.find(HourInput).props().options).to.have.length(24);
       });
 
       it('fills the minutes select box with range from steps prop', function() {
         props.step = 5;
-        var timeSelect = shallow(<TimeSelect {...props}/>);
-        expect(timeSelect.find(Input).at(1).children()).to.have.length(12);
+        var timeSelect = mount(<TimeSelect {...props}/>);
+        expect(timeSelect.find(MinuteInput).props().options).to.have.length(12);
       });
     });
   });
@@ -190,7 +188,7 @@ describe('TimeSelect', function() {
       });
     });
 
-    it('will emit a date up if an option is chosen', function() {
+    it('will emit a time up if an option is chosen', function() {
       var handler = sinon.stub();
       var doc = TestUtils.renderIntoDocument(<TimeSelect onChange={handler} />);
       var node = TestUtils.findRenderedDOMComponentWithTag(doc, 'select');
@@ -201,22 +199,7 @@ describe('TimeSelect', function() {
         }
       });
 
-      sinon.assert.calledWith(handler, new Date(2015, 5, 6, 11, 30, 0, 0));
-    });
-
-    it('will use a passed in date for the values of days/months/years', function() {
-      var handler = sinon.stub();
-      var date = new Date(2016, 7, 8);
-      var doc = TestUtils.renderIntoDocument(<TimeSelect onChange={handler} value={date} />);
-      var node = TestUtils.findRenderedDOMComponentWithTag(doc, 'select');
-
-      TestUtils.Simulate.change(node, {
-        target: {
-          value: '14:30'
-        }
-      });
-
-      sinon.assert.calledWith(handler, new Date(2016, 7, 8, 14, 30, 0, 0));
+      sinon.assert.calledWith(handler, { hours: '11', minutes: '30' });
     });
 
     context('seperateHourMins', function() {
@@ -241,7 +224,7 @@ describe('TimeSelect', function() {
             }
           });
 
-          sinon.assert.calledWith(handler, { hours: '14' });
+          sinon.assert.calledWith(handler, { hours: '14', minutes: '55' });
         });
       });
 
@@ -257,7 +240,7 @@ describe('TimeSelect', function() {
             }
           });
 
-          sinon.assert.calledWith(handler, { minutes: '50' });
+          sinon.assert.calledWith(handler, { hours: '11', minutes: '50' });
         });
       });
     });

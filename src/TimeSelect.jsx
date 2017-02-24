@@ -141,11 +141,13 @@ var TimePicker = React.createClass({
   },
 
   changeCombinedTime: function(e) {
-    var hourMins = e.target.value.split(':');
-    this.props.onChange({
-      hours: hourMins[0],
-      minutes: hourMins[1]
-    });
+    if (this.props.onChange) {
+      var hourMins = e.target.value.split(':');
+      this.props.onChange({
+        hours: hourMins[0],
+        minutes: hourMins[1]
+      });
+    }
   },
 
   changeHours: function(e) {
@@ -172,7 +174,7 @@ var TimePicker = React.createClass({
             id={this.props.id}
             className={this.props.className}
             value={this.props.time.hours}
-            name={this.props.time.hours}
+            name="hours"
             onChange={this.changeHours}
             options={this.generateHours()} />
 
@@ -180,7 +182,7 @@ var TimePicker = React.createClass({
             id={this.props.id}
             className={this.props.className}
             value={this.props.time.minutes}
-            name={this.props.name}
+            name="minutes"
             onChange={this.changeMinutes}
             options={this.generateMinutes()} />
         </div>
