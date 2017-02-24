@@ -1,4 +1,8 @@
 # Change log
+
+### 2.2.0 - 2017-02-24
+- Added a seperateHourMins prop that allows for individual hour and minute inputs. 
+
 ### 2.1.0 - 2016-12-19
 - Add an id prop that is passed to the input component.
 
