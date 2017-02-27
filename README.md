@@ -19,6 +19,8 @@ React.render(<TimeSelect label="Choose time" />, document.getElementById('contai
 - __step__ - Number of minutes between each option. Default is {30}.
 - __locale__ - Locale ReactIntl should attempt to use for formatting. Default is 'en-GB'
 - __id__ - `id` attribute applied to the input element.
+- __seperateHourMins__ - Toggle for splitting hour and minutes into seperate inputs. Default is 'false'.
+- __time__ - Object with 'hours' and 'minutes' for specifying current hour / minute input values.
 
 ## Developing
 
