@@ -1,7 +1,10 @@
 # Change log
 
+### 2.2.1 - 2017-03-01
+- Change 'Minutes' input label to 'Mins'.
+
 ### 2.2.0 - 2017-02-24
-- Add a seperateHourMins prop that allows for individual hour and minute inputs. 
+- Add a seperateHourMins prop that allows for individual hour and minute inputs.
 - Add a time prop that passes hour / minute values to hour / minute inputs.
 
 ### 2.1.0 - 2016-12-19

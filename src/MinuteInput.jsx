@@ -20,7 +20,7 @@ var MinuteInput = React.createClass({
         value={this.props.value}
         className={this.props.className}
         containerClassName="col-xs-6"
-        label="Minutes"
+        label="Mins"
         options={this.props.options}
         onChange={this.props.onChange} />
     );
