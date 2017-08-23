@@ -1,5 +1,8 @@
 # Change log
 
+### 2.3.0 - 2017-08-23
+- Change 'Mins' input label to 'Minutes'.
+
 ### 2.2.1 - 2017-03-01
 - Change 'Minutes' input label to 'Mins'.
 
