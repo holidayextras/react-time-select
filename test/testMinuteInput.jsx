@@ -34,7 +34,7 @@ describe('MinuteInput', function() {
 
     it('should render an TimeInput field with label hours', function() {
       var minuteInput = shallow(<MinuteInput {...props} />);
-      expect(minuteInput.find(TimeInput).props().label).to.equal('Mins');
+      expect(minuteInput.find(TimeInput).props().label).to.equal('Minutes');
     });
 
     it('should render an TimeInput field with a className prop', function() {
