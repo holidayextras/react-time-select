@@ -2,15 +2,17 @@
 
 var React = require('react');
 var TimeInput = require('./TimeInput');
+var PropTypes = require('prop-types');
+var createReactClass = require('create-react-class');
 
-var HourInput = React.createClass({
+var HourInput = createReactClass({
   propTypes: {
-    id: React.PropTypes.string,
-    className: React.PropTypes.string,
-    name: React.PropTypes.string,
-    value: React.PropTypes.instanceOf(Date),
-    onChange: React.PropTypes.func,
-    options: React.PropTypes.object
+    id: PropTypes.string,
+    className: PropTypes.string,
+    name: PropTypes.string,
+    value: PropTypes.instanceOf(Date),
+    onChange: PropTypes.func,
+    options: PropTypes.object
   },
 
   render: function() {

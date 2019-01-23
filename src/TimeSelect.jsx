@@ -1,34 +1,34 @@
 'use strict';
 
 var React = require('react');
-var Input = require('react-bootstrap').Input;
-var ReactIntl = require('react-intl');
-
+var FormControl = require('react-bootstrap').FormControl;
+var PropTypes = require('prop-types');
 var HourInput = require('./HourInput');
 var MinuteInput = require('./MinuteInput');
+var createReactClass = require('create-react-class');
+var ReactIntl = require('react-intl')
 
-var TimePicker = React.createClass({
-  mixins: [ ReactIntl.IntlMixin ],
+var TimePicker = createReactClass({
 
   propTypes: {
-    id: React.PropTypes.string,
-    className: React.PropTypes.string,
-    label: React.PropTypes.string,
-    name: React.PropTypes.string,
-    value: React.PropTypes.instanceOf(Date),
-    start: React.PropTypes.number,
-    end: React.PropTypes.number,
-    time: React.PropTypes.shape({
-      hours: React.PropTypes.string,
-      minutes: React.PropTypes.string
+    id: PropTypes.string,
+    className: PropTypes.string,
+    label: PropTypes.string,
+    name: PropTypes.string,
+    value: PropTypes.instanceOf(Date),
+    start: PropTypes.number,
+    end: PropTypes.number,
+    time: PropTypes.shape({
+      hours: PropTypes.string,
+      minutes: PropTypes.string
     }),
-    step: React.PropTypes.number,
-    locale: React.PropTypes.string,
-    onChange: React.PropTypes.func,
-    seperateHourMins: React.PropTypes.bool,
-    formats: React.PropTypes.shape({
-      time: React.PropTypes.shape({
-        short: React.PropTypes.object
+    step: PropTypes.number,
+    locale: PropTypes.string,
+    onChange: PropTypes.func,
+    seperateHourMins: PropTypes.bool,
+    formats: PropTypes.shape({
+      time: PropTypes.shape({
+        short: PropTypes.object
       })
     })
   },
@@ -188,34 +188,34 @@ var TimePicker = React.createClass({
         </div>
       );
     } else {
-      timeInput = (
-        <Input
-          type="select"
-          value={this.defaultValueFromProps()}
-          name={this.props.name}
-          className={this.props.className}
-          label={this.props.label}
-          onChange={this.changeCombinedTime}
-          id={this.props.id}
-        >
-          {this.listTimeOptions().map(timeData => {
-            return (
-              <ReactIntl.FormattedTime key={timeData.key} value={timeData.date} {...this.props.formats.time.short}>
-                {time => (
-                  <option value={timeData.value}>{time}</option>
-                )}
-              </ReactIntl.FormattedTime>
-            );
-          })}
-        </Input>
-      );
+        timeInput = (
+          <FormControl 
+            componentClass="select" 
+            placeholder="select" 
+            value={this.defaultValueFromProps()}
+            name={this.props.name}
+            className={this.props.className}
+            label={this.props.label}
+            onChange={this.changeCombinedTime}
+            id={this.props.id} >
+            {this.listTimeOptions().map(timeData => {
+              return (
+                <ReactIntl.FormattedTime key={timeData.key} value={timeData.date} {...this.props.formats.time.short}>
+                  {time => (
+                    <option value={timeData.value}>{time}</option>
+                  )}
+                </ReactIntl.FormattedTime>
+              );
+            })}
+          </FormControl>
+        );
     }
 
     return (
       <ReactIntl.IntlProvider locale={this.props.locale}>
-        {timeInput}
+        <div>{timeInput}</div>
       </ReactIntl.IntlProvider>
-    );
+    )
   }
 });
 

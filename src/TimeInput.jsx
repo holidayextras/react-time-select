@@ -2,17 +2,19 @@
 
 var React = require('react');
 var Input = require('react-bootstrap').Input;
+var PropTypes = require('prop-types');
+var createReactClass = require('create-react-class');
 
-var TimeInput = React.createClass({
+var TimeInput = createReactClass({
   propTypes: {
-    id: React.PropTypes.string,
-    className: React.PropTypes.string,
-    containerClassName: React.PropTypes.string,
-    label: React.PropTypes.string,
-    name: React.PropTypes.string,
-    value: React.PropTypes.instanceOf(Date),
-    options: React.PropTypes.object,
-    onChange: React.PropTypes.func
+    id: PropTypes.string,
+    className: PropTypes.string,
+    containerClassName: PropTypes.string,
+    label: PropTypes.string,
+    name: PropTypes.string,
+    value: PropTypes.instanceOf(Date),
+    options: PropTypes.object,
+    onChange: PropTypes.func
   },
 
   render: function() {
