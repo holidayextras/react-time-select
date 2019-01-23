@@ -6,7 +6,7 @@ var PropTypes = require('prop-types');
 var HourInput = require('./HourInput');
 var MinuteInput = require('./MinuteInput');
 var createReactClass = require('create-react-class');
-var ReactIntl = require('react-intl')
+var ReactIntl = require('react-intl');
 
 var TimePicker = createReactClass({
 
@@ -188,34 +188,34 @@ var TimePicker = createReactClass({
         </div>
       );
     } else {
-        timeInput = (
-          <FormControl 
-            componentClass="select" 
-            placeholder="select" 
-            value={this.defaultValueFromProps()}
-            name={this.props.name}
-            className={this.props.className}
-            label={this.props.label}
-            onChange={this.changeCombinedTime}
-            id={this.props.id} >
-            {this.listTimeOptions().map(timeData => {
-              return (
-                <ReactIntl.FormattedTime key={timeData.key} value={timeData.date} {...this.props.formats.time.short}>
-                  {time => (
-                    <option value={timeData.value}>{time}</option>
-                  )}
-                </ReactIntl.FormattedTime>
-              );
-            })}
-          </FormControl>
-        );
+      timeInput = (
+        <FormControl
+          componentClass="select"
+          placeholder="select"
+          value={this.defaultValueFromProps()}
+          name={this.props.name}
+          className={this.props.className}
+          label={this.props.label}
+          onChange={this.changeCombinedTime}
+          id={this.props.id} >
+          {this.listTimeOptions().map(timeData => {
+            return (
+              <ReactIntl.FormattedTime key={timeData.key} value={timeData.date} {...this.props.formats.time.short}>
+                {time => (
+                  <option value={timeData.value}>{time}</option>
+                )}
+              </ReactIntl.FormattedTime>
+            );
+          })}
+        </FormControl>
+      );
     }
 
     return (
       <ReactIntl.IntlProvider locale={this.props.locale}>
         <div>{timeInput}</div>
       </ReactIntl.IntlProvider>
-    )
+    );
   }
 });
 
