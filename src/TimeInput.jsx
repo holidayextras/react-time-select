@@ -6,9 +6,9 @@ var PropTypes = require('prop-types');
 
 class TimeInput extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
-  render () {
+  render() {
     return (
       <div className={this.props.containerClassName}>
         <FormControl
@@ -29,7 +29,7 @@ class TimeInput extends React.Component {
       </div>
     );
   }
-};
+}
 
 TimeInput.propTypes = {
   id: PropTypes.string,

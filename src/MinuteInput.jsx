@@ -6,9 +6,9 @@ var PropTypes = require('prop-types');
 
 class MinuteInput extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
-  render () {
+  render() {
     return (
       <TimeInput
         id={this.props.id}
@@ -20,7 +20,7 @@ class MinuteInput extends React.Component {
         onChange={this.props.onChange} />
     );
   }
-};
+}
 
 MinuteInput.propTypes = {
   id: PropTypes.string,

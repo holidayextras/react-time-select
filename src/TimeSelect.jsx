@@ -9,19 +9,19 @@ var ReactIntl = require('react-intl');
 
 class TimePicker extends React.Component {
   constructor(props) {
-    super(props)
-    this.listTimeOptions = this.listTimeOptions.bind(this)
-    this.generateFormattedTime = this.generateFormattedTime.bind(this)
-    this.generateDateAtTime = this.generateDateAtTime.bind(this)
-    this.generateHours = this.generateHours.bind(this)
-    this.generateMinutes = this.generateMinutes.bind(this)
-    this.generateTimeRange = this.generateTimeRange.bind(this)
-    this.defaultValueFromProps = this.defaultValueFromProps.bind(this)
-    this.changeCombinedTime = this.changeCombinedTime.bind(this)
-    this.changeHours = this.changeHours.bind(this)
-    this.changeMinutes = this.changeMinutes.bind(this)
+    super(props);
+    this.listTimeOptions = this.listTimeOptions.bind(this);
+    this.generateFormattedTime = this.generateFormattedTime.bind(this);
+    this.generateDateAtTime = this.generateDateAtTime.bind(this);
+    this.generateHours = this.generateHours.bind(this);
+    this.generateMinutes = this.generateMinutes.bind(this);
+    this.generateTimeRange = this.generateTimeRange.bind(this);
+    this.defaultValueFromProps = this.defaultValueFromProps.bind(this);
+    this.changeCombinedTime = this.changeCombinedTime.bind(this);
+    this.changeHours = this.changeHours.bind(this);
+    this.changeMinutes = this.changeMinutes.bind(this);
   }
-  listTimeOptions () {
+  listTimeOptions() {
     var self = this;
 
     return this.generateTimeRange().map(function(unformattedTime) {
@@ -35,7 +35,7 @@ class TimePicker extends React.Component {
     });
   }
 
-  generateFormattedTime (unformattedTime) {
+  generateFormattedTime(unformattedTime) {
     var formattedTime = '' + unformattedTime;
 
     while (formattedTime.length < 4) {
@@ -45,14 +45,14 @@ class TimePicker extends React.Component {
     return formattedTime.replace(/(.{2})(.{2})/, '$1:$2');
   }
 
-  generateDateAtTime (formattedTime) {
+  generateDateAtTime(formattedTime) {
     var hoursMins = formattedTime.split(':');
     var newDate = new Date(this.props.value || new Date());
     if (!this.props.seperateHourMins) newDate.setHours(hoursMins[0], hoursMins[1], 0, 0);
     return newDate;
   }
 
-  generateHours () {
+  generateHours() {
     var hours = [];
 
     for (var hour = 0; hour < 24; hour++) {
@@ -65,7 +65,7 @@ class TimePicker extends React.Component {
     return hours;
   }
 
-  generateMinutes () {
+  generateMinutes() {
     var minutes = [];
 
     for (var minute = 0; minute <= 60 - this.props.step; minute += this.props.step) {
@@ -79,7 +79,7 @@ class TimePicker extends React.Component {
     return minutes;
   }
 
-  generateTimeRange () {
+  generateTimeRange() {
     var times = [];
 
     var start = parseInt(this.props.start, 10);
@@ -100,13 +100,13 @@ class TimePicker extends React.Component {
     return times;
   }
 
-  defaultValueFromProps () {
+  defaultValueFromProps() {
     if (!this.props.value) return undefined;
 
     return this.generateFormattedTime((this.props.value.getHours() * 100) + this.props.value.getMinutes());
   }
 
-  changeCombinedTime (e) {
+  changeCombinedTime(e) {
     if (this.props.onChange) {
       var hourMins = e.target.value.split(':');
       this.props.onChange({
@@ -116,21 +116,21 @@ class TimePicker extends React.Component {
     }
   }
 
-  changeHours (e) {
+  changeHours(e) {
     this.props.onChange({
       hours: e.target.value,
       minutes: this.props.time.minutes
     });
   }
 
-  changeMinutes (e) {
+  changeMinutes(e) {
     this.props.onChange({
       hours: this.props.time.hours,
       minutes: e.target.value
     });
   }
 
-  render () {
+  render() {
     var timeInput;
 
     if (this.props.seperateHourMins) {
@@ -183,7 +183,7 @@ class TimePicker extends React.Component {
       </ReactIntl.IntlProvider>
     );
   }
-};
+}
 
 TimePicker.propTypes = {
   id: PropTypes.string,
