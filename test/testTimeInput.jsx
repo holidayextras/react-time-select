@@ -1,14 +1,16 @@
 'use strict';
 
 var React = require('react');
-var TestUtils = require('react-addons-test-utils');
+var TestUtils = require('react-dom/test-utils');
 var expect = require('chai')
   .use(require('dirty-chai')).expect;
 
-var Input = require('react-bootstrap').Input;
+var FormControl = require('react-bootstrap').FormControl;
 
 var assert = require('assert');
-var { shallow } = require('enzyme');
+var { shallow, configure } = require('enzyme');
+var Adapter = require('enzyme-adapter-react-16');
+configure({ adapter: new Adapter() });
 
 var TimeInput = require('../src/TimeInput');
 
@@ -29,29 +31,29 @@ describe('TimeInput', function() {
   });
 
   describe('render', function() {
-    it('should render an Input field', function() {
+    it('should render a FormControl field', function() {
       var timeInput = shallow(<TimeInput {...props} />);
-      expect(timeInput.find(Input)).to.have.length(1);
+      expect(timeInput.find(FormControl)).to.have.length(1);
     });
 
-    it('should render an Input field with type select', function() {
+    it('should render an FormControl field with componentClass select', function() {
       var timeInput = shallow(<TimeInput {...props} />);
-      expect(timeInput.find(Input).props().type).to.equal('select');
+      expect(timeInput.find(FormControl).props().componentClass).to.equal('select');
     });
 
-    it('should render an Input field with a className prop', function() {
+    it('should render an FormControl field with a className prop', function() {
       var timeSelect = shallow(<TimeInput {...props} />);
-      expect(timeSelect.find(Input).props().className).to.equal(props.className);
+      expect(timeSelect.find(FormControl).props().className).to.equal(props.className);
     });
 
-    it('should render an Input field with a value prop', function() {
+    it('should render an FormControl field with a value prop', function() {
       var timeSelect = shallow(<TimeInput {...props} />);
-      expect(timeSelect.find(Input).props().value).to.equal(props.value);
+      expect(timeSelect.find(FormControl).props().value).to.equal(props.value);
     });
 
     it('fills the select box with a range of times', function() {
       var timeSelect = shallow(<TimeInput {...props} />);
-      expect(timeSelect.find(Input).children()).to.have.length(props.options.length);
+      expect(timeSelect.find(FormControl).children()).to.have.length(props.options.length);
     });
   });
 });

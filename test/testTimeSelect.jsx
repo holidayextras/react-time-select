@@ -1,17 +1,19 @@
 'use strict';
 
 var React = require('react');
-var TestUtils = require('react-addons-test-utils');
+var TestUtils = require('react-dom/test-utils');
 var expect = require('chai')
 .use(require('dirty-chai')).expect;
 
-var Input = require('react-bootstrap').Input;
+var FormControl = require('react-bootstrap').FormControl;
 
 var ReactIntl = require('react-intl');
 
 var assert = require('assert');
 var sinon = require('sinon');
-var { shallow, mount } = require('enzyme');
+var { shallow, mount, configure } = require('enzyme');
+var Adapter = require('enzyme-adapter-react-16');
+configure({ adapter: new Adapter() });
 
 var TimeSelect = require('../src/TimeSelect');
 var HourInput = require('../src/HourInput');
@@ -65,48 +67,48 @@ describe('TimeSelect', function() {
     it('can be provided a default value as a Date instance', function() {
       var date = new Date(2015, 1, 1, 15, 30);
       var timeSelect = shallow(<TimeSelect value={date}/>);
-      expect(timeSelect.find(Input).props().value).to.equal('15:30');
+      expect(timeSelect.find(FormControl).props().value).to.equal('15:30');
     });
 
-    it('should render the Input field', function() {
+    it('should render the FormControl field', function() {
       var timeSelect = shallow(<TimeSelect />);
-      expect(timeSelect.find(Input)).to.have.length(1);
+      expect(timeSelect.find(FormControl)).to.have.length(1);
     });
 
-    it('should render the Input field with a type prop', function() {
+    it('should render the FormControl field with a componentClass prop', function() {
       var timeSelect = shallow(<TimeSelect {...props}/>);
-      expect(timeSelect.find(Input).props().type).to.equal('select');
+      expect(timeSelect.find(FormControl).props().componentClass).to.equal('select');
     });
 
-    it('should render the Input field with a name prop', function() {
+    it('should render the FormControl field with a name prop', function() {
       var timeSelect = shallow(<TimeSelect {...props}/>);
-      expect(timeSelect.find(Input).props().name).to.equal(props.name);
+      expect(timeSelect.find(FormControl).props().name).to.equal(props.name);
     });
 
-    it('should render the Input field with a className prop', function() {
+    it('should render the FormControl field with a className prop', function() {
       var timeSelect = shallow(<TimeSelect {...props}/>);
-      expect(timeSelect.find(Input).props().className).to.equal(props.className);
+      expect(timeSelect.find(FormControl).props().className).to.equal(props.className);
     });
 
-    it('should render the Input field with a value prop', function() {
+    it('should render the FormControl field with a value prop', function() {
       var timeSelect = shallow(<TimeSelect {...props}/>);
-      expect(timeSelect.find(Input).props().value).to.equal(props.value);
+      expect(timeSelect.find(FormControl).props().value).to.equal(props.value);
     });
 
     it('fills the select box with a range of times', function() {
       var timeSelect = shallow(<TimeSelect/>);
-      expect(timeSelect.find(Input).children()).to.have.length(47);
+      expect(timeSelect.find(FormControl).children()).to.have.length(47);
     });
 
     it('can adjust the range with start, end and step', function() {
       var timeSelect = shallow(<TimeSelect start={1000} end={1130} step={15} />);
-      expect(timeSelect.find(Input).children()).to.have.length(6);
+      expect(timeSelect.find(FormControl).children()).to.have.length(6);
     });
 
     it('will not generate broken times if given strings for start, end and step', function() {
       // Will print warnings in development though, of course
       var timeSelect = shallow(<TimeSelect start={'1000'} end={'1130'} step={'15'} />);
-      expect(timeSelect.find(Input).children()).to.have.length(6);
+      expect(timeSelect.find(FormControl).children()).to.have.length(6);
     });
 
     it('the time can be formatted', function() {
@@ -119,9 +121,9 @@ describe('TimeSelect', function() {
       expect(timeSelect.find(ReactIntl.FormattedTime).text()).to.contain('10:00');
     });
 
-    it('passes an id prop to the Input component', function() {
+    it('passes an id prop to the FormControl component', function() {
       var timeSelect = shallow(<TimeSelect {...props} id="timeSelect"/>);
-      expect(timeSelect.find(Input).prop('id')).to.equal('timeSelect');
+      expect(timeSelect.find(FormControl).prop('id')).to.equal('timeSelect');
     });
 
     context('seperateHourMins', function() {
