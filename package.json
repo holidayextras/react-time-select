@@ -1,15 +1,14 @@
 {
   "name": "react-time-select",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "description": "Component to generate a dropdown list populated with a configurable time range",
   "main": "dist/TimeSelect.js",
   "scripts": {
-    "ci": "npm run lint && npm run coverage",
-    "coverage": "babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha -- --require react-tests-globals-setup test/test* && istanbul check-coverage",
+    "ci": "npm run lint && npm run test",
     "prepublish": "mkdir -p dist && babel src/TimeSelect.jsx > dist/TimeSelect.js && babel src/HourInput.jsx > dist/HourInput.js && babel src/MinuteInput.jsx > dist/MinuteInput.js && babel src/TimeInput.jsx > dist/TimeInput.js",
     "prestart": "ulimit -n 9999",
     "start": "watchify -t babelify doc/example.js -o doc/example-built.js -v  --extension=.jsx",
-    "test": "mocha --compilers js:babel/register --require react-tests-globals-setup test/test*",
+    "test": "babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha -- --require react-tests-globals-setup test/test* && istanbul check-coverage",
     "lint": "make-up src test doc"
   },
   "author": "Ollie Buck <ollie.buck@holidayextras.com>",
@@ -19,13 +18,15 @@
     "url": "https://github.com/holidayextras/react-time-select.git"
   },
   "dependencies": {
-    "react": "^0.14.2",
-    "react-bootstrap": "^0.28.2",
-    "react-dom": "^0.14.2",
-    "react-intl": "2.0.0-pr-3"
+    "react-bootstrap": "0.32.4",
+    "react-intl": "2.8.0"
+  },
+  "peerDependencies": {
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.6.5",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.7.2",
     "babel-istanbul": "^0.7.0",
     "babel-plugin-static-fs": "^1.1.0",
@@ -35,12 +36,14 @@
     "browserify": "^11.1.0",
     "chai": "^3.3.0",
     "dirty-chai": "^1.2.2",
-    "enzyme": "^1.3.1",
+    "enzyme": "3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
     "istanbul": "^0.4.2",
     "jsdom": "^11.2.0",
-    "make-up": "^7.1.0",
+    "make-up": "^10.0.0",
     "mocha": "^2.3.3",
-    "react-addons-test-utils": "^0.14.6",
+    "react": "16.7.0",
+    "react-dom": "16.7.0",
     "react-shallow-render": "^1.0.1",
     "react-tests-globals-setup": "^1.0.0",
     "sinon": "^1.17.1",

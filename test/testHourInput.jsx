@@ -1,12 +1,14 @@
 'use strict';
 
 var React = require('react');
-var TestUtils = require('react-addons-test-utils');
+var TestUtils = require('react-dom/test-utils');
 var expect = require('chai')
   .use(require('dirty-chai')).expect;
 
 var assert = require('assert');
-var { shallow } = require('enzyme');
+var { shallow, configure } = require('enzyme');
+var Adapter = require('enzyme-adapter-react-16');
+configure({ adapter: new Adapter() });
 
 var HourInput = require('../src/HourInput');
 var TimeInput = require('../src/TimeInput');

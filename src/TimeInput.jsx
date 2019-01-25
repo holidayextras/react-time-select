@@ -1,25 +1,18 @@
 'use strict';
 
 var React = require('react');
-var Input = require('react-bootstrap').Input;
+var FormControl = require('react-bootstrap').FormControl;
+var PropTypes = require('prop-types');
 
-var TimeInput = React.createClass({
-  propTypes: {
-    id: React.PropTypes.string,
-    className: React.PropTypes.string,
-    containerClassName: React.PropTypes.string,
-    label: React.PropTypes.string,
-    name: React.PropTypes.string,
-    value: React.PropTypes.instanceOf(Date),
-    options: React.PropTypes.object,
-    onChange: React.PropTypes.func
-  },
-
-  render: function() {
+class TimeInput extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
     return (
       <div className={this.props.containerClassName}>
-        <Input
-          type="select"
+        <FormControl
+          componentClass="select"
           value={this.props.value}
           name={this.props.name}
           className={this.props.className}
@@ -29,13 +22,24 @@ var TimeInput = React.createClass({
         >
           {this.props.options.map(option => {
             return (
-              <option value={option}>{option}</option>
+              <option key={option} value={option}>{option}</option>
             );
           })}
-        </Input>
+        </FormControl>
       </div>
     );
   }
-});
+}
+
+TimeInput.propTypes = {
+  id: PropTypes.string,
+  className: PropTypes.string,
+  containerClassName: PropTypes.string,
+  label: PropTypes.string,
+  name: PropTypes.string,
+  value: PropTypes.instanceOf(Date),
+  options: PropTypes.object,
+  onChange: PropTypes.func
+};
 
 module.exports = TimeInput;
