@@ -4,12 +4,11 @@
   "description": "Component to generate a dropdown list populated with a configurable time range",
   "main": "dist/TimeSelect.js",
   "scripts": {
-    "ci": "npm run lint && npm run coverage",
-    "coverage": "babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha -- --require react-tests-globals-setup test/test* && istanbul check-coverage",
+    "ci": "npm run lint && npm run test",
     "prepublish": "mkdir -p dist && babel src/TimeSelect.jsx > dist/TimeSelect.js && babel src/HourInput.jsx > dist/HourInput.js && babel src/MinuteInput.jsx > dist/MinuteInput.js && babel src/TimeInput.jsx > dist/TimeInput.js",
     "prestart": "ulimit -n 9999",
     "start": "watchify -t babelify doc/example.js -o doc/example-built.js -v  --extension=.jsx",
-    "test": "mocha --compilers js:babel/register --require react-tests-globals-setup test/test*",
+    "test": "babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha -- --require react-tests-globals-setup test/test* && istanbul check-coverage",
     "lint": "make-up src test doc"
   },
   "author": "Ollie Buck <ollie.buck@holidayextras.com>",
